@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Skill Assessment{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">SHOW WHAT YOU KNOW</span><h1>{{ role }} assessment</h1><p>Your skill quiz starts after camera permission is granted. You have 10 minutes.</p></div><div class="timer-card">TIME LEFT <strong id="timer">10:00</strong></div></div>
+<div class="notice"><b>Camera required:</b> Allow camera access to start this quiz. The preview stays in this browser tab; this project does not record or upload video. You can stop the quiz by leaving the page. Camera access is not proof of identity or a guarantee against cheating.</div>
+<div class="panel monitor-panel"><div><b>Camera check</b><p class="muted tiny">Your browser will ask for permission. Use a secure local address (localhost) and make sure no other app is using the camera.</p></div><button type="button" class="btn" id="cameraBtn">Allow camera & start quiz</button><video id="cameraPreview" autoplay muted playsinline style="display:none;max-width:260px;border-radius:12px"></video><p id="cameraStatus" class="tiny muted" aria-live="polite">Quiz locked until camera access is granted.</p></div>
+<div id="quizLocked" class="notice">Grant camera access to display the questions.</div>
+<form method="post" id="testForm" style="display:none"><div class="test-meta"><span>{{ questions|length }} questions</span><span id="tabWarnings">Tab-switch warnings: 0</span></div>
+{% for q in questions %}<section class="panel question-card"><span class="eyebrow">QUESTION {{ loop.index }} · {{ q[3] }}</span><h3>{{ q[0] }}</h3>{% for option in q[1] %}<label class="option"><input type="radio" name="q{{ loop.index0 }}" value="{{ loop.index0 }}" required><span>{{ option }}</span></label>{% endfor %}</section>{% endfor %}
+<button class="btn" type="submit">Finish assessment</button></form>
+{% endblock %}
